@@ -1,4 +1,4 @@
-# Proyecto de Gestión de Archivos ZIP para Genexus
+# Proyecto de Gestión de Archivos ZIP
 
 Este proyecto proporciona un conjunto de scripts en Python para manejar la extracción de archivos ZIP y la instalación de Genexus. El script permite al usuario seleccionar archivos y carpetas, desbloquear archivos y ejecutar un instalador.
 
