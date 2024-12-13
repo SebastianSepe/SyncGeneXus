@@ -4,7 +4,6 @@ import subprocess
 from SyncBuild import process_zip
 
 def main():
-    zip_file_path = "C:/Users/st.rodriguez/Downloads/genexus-exe_std..zip"
     root_dir = "C:/"
     gx_folders = [folder for folder in os.listdir(root_dir)
                   if (("trunk" in folder.lower() or "stable" in folder.lower())
@@ -26,9 +25,11 @@ def main():
         print("Opción no válida. Saliendo del programa.")
         return
 
+    # Listar los archivos ZIP en el directorio donde se espera que estén
+    zip_search_directory = "C:/Users/st.rodriguez/Downloads/"
     file_to_extract_partial = input("¿Cómo se llama parcialmente el archivo que desea extraer? ")
 
-    found_files = [f for f in os.listdir(os.path.dirname(zip_file_path))
+    found_files = [f for f in os.listdir(zip_search_directory)
                    if fnmatch.fnmatch(f.lower(), f"*{file_to_extract_partial.lower()}*")]
 
     valid_files = [f for f in found_files if f.lower().endswith(('.zip', '.zipy'))]
@@ -42,7 +43,8 @@ def main():
 
         if file_index.isdigit() and 1 <= int(file_index) <= len(valid_files):
             selected_file = valid_files[int(file_index) - 1]
-            process_zip(os.path.join(os.path.dirname(zip_file_path), selected_file), extract_path)
+            zip_file_path = os.path.join(zip_search_directory, selected_file)  # Obtiene la ruta completa del archivo ZIP
+            process_zip(zip_file_path, extract_path)
             print(f"RUTA DE EXTRACCION: {extract_path}")
 
             # Crear el archivo por lotes
@@ -52,7 +54,9 @@ def main():
 
             # Ejecutar el archivo por lotes con privilegios de administrador
             try:
-                subprocess.run(['powershell', '-Command', f'Start-Process cmd -ArgumentList "/c {bat_file_path}" -Verb RunAs'], check=True)
+                subprocess.run(
+                    ['powershell', '-Command', f'Start-Process cmd -ArgumentList "/c {bat_file_path}" -Verb RunAs'],
+                    check=True)
                 print("Genexus /install ejecutado con éxito.")
             except subprocess.CalledProcessError as e:
                 print(f"Error al ejecutar el comando: {e}")

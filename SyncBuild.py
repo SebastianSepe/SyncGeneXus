@@ -37,7 +37,7 @@ def process_zip(zip_filepath, extract_to):
     unblock_file(zip_filepath)
     unzip_file(zip_filepath, extract_to)
 
-if __name__ == "__main__":
-    zip_file_path = "C:/Users/st.rodriguez/Downloads/genexus-exe_std.zip"
-    extract_path = "C:/gxtrunk"
-    process_zip(zip_file_path, extract_path)
+# if __name__ == "__main__":
+#     zip_file_path = "C:/Users/st.rodriguez/Downloads/genexus-exe_std.zip"
+#     extract_path = "C:/gxtrunk"
+#     process_zip(zip_file_path, extract_path)
